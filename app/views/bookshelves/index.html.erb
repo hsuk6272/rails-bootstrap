@@ -1,0 +1,32 @@
+<h1>Listing bookshelves</h1>
+
+<!-- add table characteristics -->
+
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    
+    <% @bookshelves.each do |bookshelf| %>
+      <tr>
+        <td><%= bookshelf.title %></td>
+        <td><%= bookshelf.author %></td>
+        <td><%= link_to 'Show', bookshelf, class: 'btn btn-primary btn-xs' %></td>
+        <td><%= link_to 'Edit', edit_bookshelf_path(bookshelf), class: 'btn btn-info btn-xs' %></td>
+        <td><%= link_to 'Destroy', bookshelf, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>
+      </tr>
+    <% end %>
+
+  </tbody>
+
+</table>
+
+<br>
+
+<%= link_to 'New book', new_bookshelf_path, class: 'btn btn-success' %>
