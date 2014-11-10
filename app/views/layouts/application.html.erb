@@ -10,7 +10,19 @@
   </head>
  
   <body>  
+    <%= render 'shared/navigation' %>
     <div id = "main-container" class="container">
+
+      <!-- to include alerts, add separate row in gride -->
+      <!-- need to add "success, info, warning, or danger" in controller -->
+      <div class="row">
+        <div class="col-xs-12">
+          <% flash.each do |name, msg| -%>
+            <%= content_tag :div, msg, class: "alert alert-#{name}" %>
+          <% end -%>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-xs-3">
           <h3>My Bookshelf</h3>

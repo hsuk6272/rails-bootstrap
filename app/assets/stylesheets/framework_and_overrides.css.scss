@@ -28,8 +28,8 @@ img {
   }
 .submit {
   @extend .btn;
-  @extend .btn-primary;
   @extend .btn-lg;
+  @extend .btn-danger;
   }
 
 // apply styles to HTML elements

@@ -1,32 +1,85 @@
-<h1>Listing bookshelves</h1>
+<ul class="nav nav-tabs" role="tablist">
+  <li class="active"><%= link_to 'View list', bookshelves_path%></li>
+  <li><%= link_to 'New book', new_bookshelf_path %></li>
+</ul>
+
+<div class="jumbotron">
+  <h1>Welcome to my site.</h1>
+</div>
 
 <!-- add table characteristics -->
 
-<table class="table table-striped table-bordered">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Author</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    
-    <% @bookshelves.each do |bookshelf| %>
+<div class="panel panel-default">
+  <div class="Panel-heading">Current bookshelf
+  </div>
+  <div class="panel-body">
+    <p>sample panel-body</p>
+  </div>
+  <table class="table table-striped table-bordered">
+    <thead>
       <tr>
-        <td><%= bookshelf.title %></td>
-        <td><%= bookshelf.author %></td>
-        <td><%= link_to 'Show', bookshelf, class: 'btn btn-primary btn-xs' %></td>
-        <td><%= link_to 'Edit', edit_bookshelf_path(bookshelf), class: 'btn btn-info btn-xs' %></td>
-        <td><%= link_to 'Destroy', bookshelf, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>
+        <th>Title</th>
+        <th>Author</th>
+        <th colspan="3"></th>
       </tr>
-    <% end %>
+    </thead>
 
-  </tbody>
+    <tbody>
+      <% @bookshelves.each do |bookshelf| %>
+        <tr>
+          <td>
+              <span class="has-tooltip" data-toggle="tooltip" title="<%= "Created on #{bookshelf.created_at.strftime("%m/%e/%Y at %w:%M %p")}, Last modified on #{bookshelf.updated_at.strftime("%m/%e/%Y at %w:%M %p")}" %>">
+                <%= bookshelf.title %>
+              </span>
+            </td>
 
-</table>
+          <% if bookshelf.author? %>
+            <td>
+              <!-- trigger modal -->
+              <button class="btn btn-link" data-toggle="modal" data-target="#bookshelf-<%=bookshelf.id%>-author">
+                View Author
+              </button>
+
+              <div class="modal fade" id="bookshelf-<%=bookshelf.id %>-author" tabindex="-1" role="dialog" aria-labelledby="bookshelf-<%=bookshelf.id%>-label" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="bookshelf-<%= bookshelf.id%>-label">Author</h4>
+                    </div>
+                    <div class="modal-body">
+                      <%=bookshelf.author%>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- create hover text instead of modal -->
+
+                <!--
+                <buttontype="button" class="btn btn-link has-popover" data-toggle="popover" title="Author" data-content="<%=bookshelf.author %>">View author (popover)</button>
+              -->
+              </td>
+            </div>
+          <% else %>
+            <td>No author</td>
+          <% end %>
+
+          
+
+          <td><%= link_to 'Show', bookshelf, class: 'btn btn-primary btn-xs' %></td>
+          <td><%= link_to 'Edit', edit_bookshelf_path(bookshelf), class: 'btn btn-info btn-xs' %></td>
+          <td><%= link_to 'Destroy', bookshelf, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %></td>
+        </tr>
+      <% end %>
+
+    </tbody>
+
+  </table>
+</div>
 
 <br>
 
-<%= link_to 'New book', new_bookshelf_path, class: 'btn btn-success' %>
+<%= link_to new_bookshelf_path, class: 'btn btn-success' do %>
+  <span class="glyphicon glyphicon-plus"></span> 
+<% end %>

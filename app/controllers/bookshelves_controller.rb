@@ -10,6 +10,7 @@ class BookshelvesController < ApplicationController
   # GET /bookshelves/1
   # GET /bookshelves/1.json
   def show
+    @bookshelf = Bookshelf.find(params[:id])
   end
 
   # GET /bookshelves/new
@@ -24,13 +25,16 @@ class BookshelvesController < ApplicationController
   # POST /bookshelves
   # POST /bookshelves.json
   def create
-    @bookshelf = Bookshelf.new(bookshelf_params)
+    @bookshelf = Bookshelf.new(params[:bookshelf])
 
     respond_to do |format|
       if @bookshelf.save
-        format.html { redirect_to @bookshelf, notice: 'Bookshelf was successfully created.' }
+        #using flash helper
+        flash[:success] = 'Book was successfully created.'
+        format.html { redirect_to @bookshelf }
         format.json { render :show, status: :created, location: @bookshelf }
       else
+        flash[:danger] = 'Error. Please check your submission.'
         format.html { render :new }
         format.json { render json: @bookshelf.errors, status: :unprocessable_entity }
       end
@@ -42,9 +46,11 @@ class BookshelvesController < ApplicationController
   def update
     respond_to do |format|
       if @bookshelf.update(bookshelf_params)
-        format.html { redirect_to @bookshelf, notice: 'Bookshelf was successfully updated.' }
+        flash[:success] = 'Bookshelf was successfully updated.'
+        format.html { redirect_to @bookshelf }
         format.json { render :show, status: :ok, location: @bookshelf }
       else
+        flash[:danger] = 'Error. Please check your update.'
         format.html { render :edit }
         format.json { render json: @bookshelf.errors, status: :unprocessable_entity }
       end
@@ -69,6 +75,6 @@ class BookshelvesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bookshelf_params
-      params.require(:bookshelf).permit(:title, :string, :author, :string)
+      params.require(:bookshelf).permit(:title, :author)
     end
 end
