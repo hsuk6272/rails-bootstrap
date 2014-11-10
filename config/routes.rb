@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :bookshelves
+  resources :welcome
 
-  root to: 'bookshelves#index'
+  root to: 'welcome#index'
 end
