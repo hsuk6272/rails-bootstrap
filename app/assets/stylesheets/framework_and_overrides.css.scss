@@ -7,6 +7,12 @@ img {
   @extend .img-responsive;
   margin: 0 auto;
   }
+
+//"." means rules styles a class center, ex: "Welcome." from welcome/index
+.center {
+  text-align: center;
+}
+
 // override for the 'Home' navigation link
 .navbar-brand {
   font-size: inherit;
@@ -34,14 +40,27 @@ img {
 
 // apply styles to HTML elements
 // to make views framework-neutral
-main {
+head {
+  margin-top: 80px;
+}
+
+body {
   @extend .container;
-  background-color: #eee;
-  padding-bottom: 80px;
-  width: 100%;
+  background-color: #662b2b;
   margin-top: 51px; // accommodate the navbar
+  padding-bottom: 80px;
+  padding-top: 40px;
+  width: 100%;
+  
   }
 section {
   @extend .row;
   margin-top: 20px;
   }
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid #eaeaea;
+  color: #777;
+}
